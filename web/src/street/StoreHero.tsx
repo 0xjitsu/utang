@@ -116,7 +116,14 @@ function StreetCanvas({ fallback, view: streetView, onFail }: { fallback: ReactN
   return (
     <div className={`street-wrap${ready ? " street-ready" : ""}`}>
       <div className="street-host" ref={host} />
-      {!ready ? <div className="street-placeholder">{fallback}</div> : null}
+      {!ready ? (
+        <div className="street-placeholder">
+          {fallback}
+          <div className="street-loading" role="status">
+            Unfolding the street…
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

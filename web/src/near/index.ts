@@ -111,23 +111,18 @@ export function createPreviewBackend(opts: { world?: PreviewWorld; latencyMs?: n
   return backend;
 }
 
-export async function createLiveBackend(): Promise<Backend> {
-  // Wallet code (and its Node polyfill needs) is only loaded in live mode.
-  const { initWallet } = await import("./wallet");
-  const handle = await initWallet();
-  const client = new UtangClient(handle.transport);
-  return {
-    mode: "live",
-    client,
-    getAccountId: handle.getAccountId,
-    onAccountChange: handle.onAccountChange,
-    signIn: handle.signIn,
-    signOut: handle.signOut,
-    now: () => BigInt(Date.now()) * 1_000_000n,
-    onChange: () => () => {},
-  };
-}
+export { createLiveBackend } from "./live";
 
-export function createBackend(): Promise<Backend> {
-  return PREVIEW ? Promise.resolve(createPreviewBackend({ latencyMs: 350 })) : createLiveBackend();
+export async function createBackend(): Promise<Backend> {
+  if (PREVIEW) {
+    const backend = createPreviewBackend({ latencyMs: 350 });
+    if (typeof window !== "undefined") {
+      const { isJudgeDemo, setupJudgePreview } = await import("../game/judge");
+      if (isJudgeDemo()) setupJudgePreview(backend);
+    }
+    return backend;
+  }
+  // Dynamic import so Preview builds do not modulepreload the wallet chunk.
+  const { createLiveBackend } = await import("./live");
+  return createLiveBackend();
 }

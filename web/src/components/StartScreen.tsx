@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Coin } from "../art/icons";
 import { unlockAudio } from "../audio/sound";
+import { isJudgeDemo, markSessionStarted } from "../game/judge";
 
 const KEY = "utang-started";
 
@@ -14,7 +15,7 @@ function alreadyStarted() {
 
 /** "Tap to open the store": a first-gesture screen that also unlocks audio. Once per session. */
 export function StartScreen() {
-  const [open, setOpen] = useState(() => !alreadyStarted());
+  const [open, setOpen] = useState(() => (isJudgeDemo() ? false : !alreadyStarted()));
   const touch = (() => {
     try {
       return !!window.matchMedia?.("(pointer: coarse)").matches;
@@ -22,6 +23,10 @@ export function StartScreen() {
       return false;
     }
   })();
+  if (isJudgeDemo()) {
+    markSessionStarted();
+    return null;
+  }
   if (!open) return null;
   const start = () => {
     void unlockAudio();

@@ -385,6 +385,20 @@ code {
   position: absolute;
   inset: 0;
 }
+.street-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 8px 14px;
+  background: rgba(255, 243, 207, 0.94);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(43, 29, 22, 0.45);
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+}
 .hero-note {
   position: absolute;
   right: 8px;

@@ -21,6 +21,7 @@ import { BarangayPicker, MapScreen } from "./map/MapScreen";
 import { JeepneyRide } from "./map/JeepneyRide";
 import { useVisiting } from "./game/location";
 import { useQuest } from "./components/Quest";
+import { isJudgeDemo } from "./game/judge";
 
 const SCREENS: { id: Screen; label: string; short?: string }[] = [
   { id: "store", label: "Store" },
@@ -107,6 +108,7 @@ function Shell() {
   useEffect(
     () =>
       bus.on("player:joined", () => {
+        if (isJudgeDemo()) return;
         if (g.rules?.barangays?.length) setPicker(true);
       }),
     [g.rules],
