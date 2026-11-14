@@ -1,0 +1,65 @@
+# ---------- Secrets: never commit ----------
+# Environment files (keep the documented example)
+.env
+.env.*
+!.env.example
+# NEAR keys and local account data (keys normally live in ~/.near-credentials, outside the repo)
+.near-credentials/
+neardev/
+*.near-credentials*
+**/near-credentials/
+# Generic key/cert files
+*.pem
+*.key
+*.p12
+id_ed25519*
+*secret*
+*.private.json
+
+# ---------- Rust / NEAR contract ----------
+target/
+*.wasm
+!web/public/**/*.wasm
+# cargo-near build output (rebuild with: cargo near build non-reproducible-wasm ...)
+contract/res/
+
+# ---------- Web (Vite / Node) ----------
+node_modules/
+dist/
+dist-ssr/
+.vite/
+coverage/
+*.tsbuildinfo
+*.local
+# Map build script cache (raw OpenStreetMap download; re-fetch with: node scripts/build-map.mjs --refresh)
+web/scripts/.cache/
+
+# ---------- Python (simulation) ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+# sim/output/ is committed on purpose: the README and the game's Economy screen quote it
+
+# ---------- Logs ----------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- Editors / OS ----------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# ---------- Tooling scratch ----------
+.claude/
+tmp/
+*.tmp

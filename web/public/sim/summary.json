@@ -1,0 +1,760 @@
+{
+ "honest": {
+  "scenario": "honest",
+  "rules": "v2",
+  "players": 40,
+  "join_deposits_near": 0.4,
+  "loans_requested": 432,
+  "loans_approved": 236,
+  "loans_declined": 194,
+  "total_lent": 215900,
+  "total_repaid_on_time": 170600,
+  "total_repaid_late": 8500,
+  "counted_repayments": 174,
+  "uncounted_on_time_repayments": 20,
+  "loans_marked_overdue": 11,
+  "intended_on_time_share": 0.9576,
+  "players_walked_away": 2,
+  "refinance_asks": 8,
+  "late_for_lack_of_coins": 1,
+  "transfers": 1946,
+  "final_total_supply": 50180,
+  "peak_total_supply": 51630,
+  "peak_supply_day": 58,
+  "final_outstanding": 36800,
+  "final_overdue_outstanding": 6000,
+  "final_frozen_balance": 6643,
+  "bonus_minted": 13380,
+  "bonus_pool_left": 9986620,
+  "bonus_pool_empty_day": null,
+  "final_trust_index_bps": 9216,
+  "min_trust_index_bps": 8710,
+  "final_players_with_overdue": 4,
+  "honest": {
+   "players": 40,
+   "loans_approved": 236,
+   "total_lent": 215900,
+   "loans_repaid_on_time": 194,
+   "counted_repayments": 174,
+   "loans_repaid_late": 6,
+   "loans_past_due_unpaid_at_end": 5,
+   "past_due_unpaid_principal_at_end": 6000,
+   "loans_not_yet_due_at_end": 31,
+   "realized_on_time_share": 0.9463,
+   "bonus_received": 13380,
+   "avg_trust": 60.05,
+   "max_trust": 120,
+   "median_lending_limit": 4162,
+   "max_lending_limit": 9500,
+   "players_at_max_limit": 0
+  },
+  "trust_distribution": {
+   "honest": {
+    "players": 40,
+    "levels": {
+     "1": 13,
+     "2": 24,
+     "3": 3
+    },
+    "trust_p10": 30,
+    "trust_p50": 60,
+    "trust_p90": 95,
+    "trust_max": 120
+   }
+  },
+  "leaderboard_top10": [
+   {
+    "id": 18,
+    "kind": "honest",
+    "trust": 120,
+    "level": 3,
+    "loans_repaid_on_time": 9
+   },
+   {
+    "id": 28,
+    "kind": "honest",
+    "trust": 120,
+    "level": 3,
+    "loans_repaid_on_time": 9
+   },
+   {
+    "id": 0,
+    "kind": "honest",
+    "trust": 110,
+    "level": 3,
+    "loans_repaid_on_time": 8
+   },
+   {
+    "id": 17,
+    "kind": "honest",
+    "trust": 95,
+    "level": 2,
+    "loans_repaid_on_time": 8
+   },
+   {
+    "id": 26,
+    "kind": "honest",
+    "trust": 95,
+    "level": 2,
+    "loans_repaid_on_time": 8
+   },
+   {
+    "id": 34,
+    "kind": "honest",
+    "trust": 95,
+    "level": 2,
+    "loans_repaid_on_time": 7
+   },
+   {
+    "id": 38,
+    "kind": "honest",
+    "trust": 90,
+    "level": 2,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 31,
+    "kind": "honest",
+    "trust": 85,
+    "level": 2,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 23,
+    "kind": "honest",
+    "trust": 82,
+    "level": 2,
+    "loans_repaid_on_time": 8
+   },
+   {
+    "id": 1,
+    "kind": "honest",
+    "trust": 80,
+    "level": 2,
+    "loans_repaid_on_time": 7
+   }
+  ],
+  "supply_bound_holds": true,
+  "invariant_checks_passed": 60
+ },
+ "deadbeats": {
+  "scenario": "deadbeats",
+  "rules": "v2",
+  "players": 40,
+  "join_deposits_near": 0.4,
+  "loans_requested": 398,
+  "loans_approved": 195,
+  "loans_declined": 199,
+  "total_lent": 181300,
+  "total_repaid_on_time": 124100,
+  "total_repaid_late": 18500,
+  "counted_repayments": 120,
+  "uncounted_on_time_repayments": 18,
+  "loans_marked_overdue": 35,
+  "intended_on_time_share": 0.8256,
+  "players_walked_away": 12,
+  "refinance_asks": 12,
+  "late_for_lack_of_coins": 3,
+  "transfers": 1734,
+  "final_total_supply": 47810,
+  "peak_total_supply": 51460,
+  "peak_supply_day": 59,
+  "final_outstanding": 38700,
+  "final_overdue_outstanding": 14700,
+  "final_frozen_balance": 19540,
+  "bonus_minted": 9110,
+  "bonus_pool_left": 9990890,
+  "bonus_pool_empty_day": null,
+  "final_trust_index_bps": 7889,
+  "min_trust_index_bps": 7378,
+  "final_players_with_overdue": 13,
+  "honest": {
+   "players": 40,
+   "loans_approved": 195,
+   "total_lent": 181300,
+   "loans_repaid_on_time": 138,
+   "counted_repayments": 120,
+   "loans_repaid_late": 20,
+   "loans_past_due_unpaid_at_end": 15,
+   "past_due_unpaid_principal_at_end": 14700,
+   "loans_not_yet_due_at_end": 22,
+   "realized_on_time_share": 0.7977,
+   "bonus_received": 9110,
+   "avg_trust": 33.4,
+   "max_trust": 97,
+   "median_lending_limit": 2000,
+   "max_lending_limit": 9000,
+   "players_at_max_limit": 0
+  },
+  "trust_distribution": {
+   "honest": {
+    "players": 40,
+    "levels": {
+     "1": 26,
+     "2": 14
+    },
+    "trust_p10": 0,
+    "trust_p50": 25,
+    "trust_p90": 75,
+    "trust_max": 97
+   }
+  },
+  "leaderboard_top10": [
+   {
+    "id": 34,
+    "kind": "honest",
+    "trust": 97,
+    "level": 2,
+    "loans_repaid_on_time": 8
+   },
+   {
+    "id": 18,
+    "kind": "honest",
+    "trust": 90,
+    "level": 2,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 11,
+    "kind": "honest",
+    "trust": 85,
+    "level": 2,
+    "loans_repaid_on_time": 7
+   },
+   {
+    "id": 0,
+    "kind": "honest",
+    "trust": 75,
+    "level": 2,
+    "loans_repaid_on_time": 5
+   },
+   {
+    "id": 36,
+    "kind": "honest",
+    "trust": 70,
+    "level": 2,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 5,
+    "kind": "honest",
+    "trust": 70,
+    "level": 2,
+    "loans_repaid_on_time": 4
+   },
+   {
+    "id": 10,
+    "kind": "honest",
+    "trust": 67,
+    "level": 2,
+    "loans_repaid_on_time": 5
+   },
+   {
+    "id": 2,
+    "kind": "honest",
+    "trust": 62,
+    "level": 2,
+    "loans_repaid_on_time": 7
+   },
+   {
+    "id": 28,
+    "kind": "honest",
+    "trust": 60,
+    "level": 2,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 20,
+    "kind": "honest",
+    "trust": 59,
+    "level": 2,
+    "loans_repaid_on_time": 5
+   }
+  ],
+  "supply_bound_holds": true,
+  "invariant_checks_passed": 60
+ },
+ "collapse": {
+  "scenario": "collapse",
+  "rules": "v2",
+  "players": 40,
+  "join_deposits_near": 0.4,
+  "loans_requested": 358,
+  "loans_approved": 184,
+  "loans_declined": 173,
+  "total_lent": 148300,
+  "total_repaid_on_time": 87400,
+  "total_repaid_late": 20200,
+  "counted_repayments": 101,
+  "uncounted_on_time_repayments": 10,
+  "loans_marked_overdue": 55,
+  "intended_on_time_share": 0.6413,
+  "players_walked_away": 18,
+  "refinance_asks": 2,
+  "late_for_lack_of_coins": 0,
+  "transfers": 1667,
+  "final_total_supply": 47990,
+  "peak_total_supply": 49070,
+  "peak_supply_day": 56,
+  "final_outstanding": 40700,
+  "final_overdue_outstanding": 25700,
+  "final_frozen_balance": 31248,
+  "bonus_minted": 7290,
+  "bonus_pool_left": 9992710,
+  "bonus_pool_empty_day": null,
+  "final_trust_index_bps": 6556,
+  "min_trust_index_bps": 6498,
+  "final_players_with_overdue": 24,
+  "honest": {
+   "players": 40,
+   "loans_approved": 184,
+   "total_lent": 148300,
+   "loans_repaid_on_time": 111,
+   "counted_repayments": 101,
+   "loans_repaid_late": 22,
+   "loans_past_due_unpaid_at_end": 33,
+   "past_due_unpaid_principal_at_end": 25700,
+   "loans_not_yet_due_at_end": 18,
+   "realized_on_time_share": 0.6687,
+   "bonus_received": 7290,
+   "avg_trust": 11.15,
+   "max_trust": 52,
+   "median_lending_limit": 1000,
+   "max_lending_limit": 7000,
+   "players_at_max_limit": 0
+  },
+  "trust_distribution": {
+   "honest": {
+    "players": 40,
+    "levels": {
+     "1": 38,
+     "2": 2
+    },
+    "trust_p10": 0,
+    "trust_p50": 5,
+    "trust_p90": 39,
+    "trust_max": 52
+   }
+  },
+  "leaderboard_top10": [
+   {
+    "id": 38,
+    "kind": "honest",
+    "trust": 52,
+    "level": 2,
+    "loans_repaid_on_time": 7
+   },
+   {
+    "id": 37,
+    "kind": "honest",
+    "trust": 50,
+    "level": 2,
+    "loans_repaid_on_time": 5
+   },
+   {
+    "id": 11,
+    "kind": "honest",
+    "trust": 47,
+    "level": 1,
+    "loans_repaid_on_time": 5
+   },
+   {
+    "id": 1,
+    "kind": "honest",
+    "trust": 39,
+    "level": 1,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 30,
+    "kind": "honest",
+    "trust": 37,
+    "level": 1,
+    "loans_repaid_on_time": 6
+   },
+   {
+    "id": 25,
+    "kind": "honest",
+    "trust": 35,
+    "level": 1,
+    "loans_repaid_on_time": 3
+   },
+   {
+    "id": 10,
+    "kind": "honest",
+    "trust": 32,
+    "level": 1,
+    "loans_repaid_on_time": 1
+   },
+   {
+    "id": 34,
+    "kind": "honest",
+    "trust": 20,
+    "level": 1,
+    "loans_repaid_on_time": 4
+   },
+   {
+    "id": 4,
+    "kind": "honest",
+    "trust": 17,
+    "level": 1,
+    "loans_repaid_on_time": 2
+   },
+   {
+    "id": 19,
+    "kind": "honest",
+    "trust": 15,
+    "level": 1,
+    "loans_repaid_on_time": 5
+   }
+  ],
+  "supply_bound_holds": true,
+  "invariant_checks_passed": 60,
+  "collapse": {
+   "supply_day_29": 37370,
+   "trust_index_bps_day_29": 8958,
+   "loans_approved_days_1_29": 120,
+   "loans_approved_days_30_60": 64,
+   "players_with_overdue_day_29": 4,
+   "players_with_overdue_day_60": 24
+  }
+ },
+ "sybil": {
+  "scenario": "sybil",
+  "rules": "v2",
+  "players": 90,
+  "join_deposits_near": 0.9,
+  "loans_requested": 2264,
+  "loans_approved": 1800,
+  "loans_declined": 462,
+  "total_lent": 2506700,
+  "total_repaid_on_time": 1779900,
+  "total_repaid_late": 6500,
+  "counted_repayments": 1514,
+  "uncounted_on_time_repayments": 57,
+  "loans_marked_overdue": 187,
+  "intended_on_time_share": 0.9758,
+  "players_walked_away": 1,
+  "refinance_asks": 2,
+  "late_for_lack_of_coins": 0,
+  "transfers": 2942,
+  "final_total_supply": 867760,
+  "peak_total_supply": 897930,
+  "peak_supply_day": 43,
+  "final_outstanding": 720300,
+  "final_overdue_outstanding": 674300,
+  "final_frozen_balance": 41808,
+  "bonus_minted": 147460,
+  "bonus_pool_left": 9852540,
+  "bonus_pool_empty_day": null,
+  "final_trust_index_bps": 7233,
+  "min_trust_index_bps": 6922,
+  "final_players_with_overdue": 46,
+  "honest": {
+   "players": 40,
+   "loans_approved": 289,
+   "total_lent": 261900,
+   "loans_repaid_on_time": 245,
+   "counted_repayments": 212,
+   "loans_repaid_late": 6,
+   "loans_past_due_unpaid_at_end": 1,
+   "past_due_unpaid_principal_at_end": 500,
+   "loans_not_yet_due_at_end": 37,
+   "realized_on_time_share": 0.9722,
+   "bonus_received": 48560,
+   "avg_trust": 109.42,
+   "max_trust": 175,
+   "median_lending_limit": 1884,
+   "max_lending_limit": 8500,
+   "players_at_max_limit": 0
+  },
+  "trust_distribution": {
+   "honest": {
+    "players": 40,
+    "levels": {
+     "2": 15,
+     "3": 23,
+     "4": 2
+    },
+    "trust_p10": 75,
+    "trust_p50": 112,
+    "trust_p90": 145,
+    "trust_max": 175
+   },
+   "attacker": {
+    "players": 50,
+    "levels": {
+     "3": 1,
+     "4": 16,
+     "5": 20,
+     "6": 8,
+     "13": 2,
+     "14": 3
+    },
+    "trust_p10": 180,
+    "trust_p50": 210,
+    "trust_p90": 630,
+    "trust_max": 690
+   }
+  },
+  "leaderboard_top10": [
+   {
+    "id": 89,
+    "kind": "attacker",
+    "trust": 690,
+    "level": 14,
+    "loans_repaid_on_time": 59
+   },
+   {
+    "id": 88,
+    "kind": "attacker",
+    "trust": 675,
+    "level": 14,
+    "loans_repaid_on_time": 59
+   },
+   {
+    "id": 87,
+    "kind": "attacker",
+    "trust": 655,
+    "level": 14,
+    "loans_repaid_on_time": 59
+   },
+   {
+    "id": 86,
+    "kind": "attacker",
+    "trust": 640,
+    "level": 13,
+    "loans_repaid_on_time": 59
+   },
+   {
+    "id": 85,
+    "kind": "attacker",
+    "trust": 630,
+    "level": 13,
+    "loans_repaid_on_time": 59
+   },
+   {
+    "id": 43,
+    "kind": "attacker",
+    "trust": 265,
+    "level": 6,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 45,
+    "kind": "attacker",
+    "trust": 265,
+    "level": 6,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 46,
+    "kind": "attacker",
+    "trust": 265,
+    "level": 6,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 40,
+    "kind": "attacker",
+    "trust": 260,
+    "level": 6,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 47,
+    "kind": "attacker",
+    "trust": 260,
+    "level": 6,
+    "loans_repaid_on_time": 23
+   }
+  ],
+  "supply_bound_holds": true,
+  "invariant_checks_passed": 60,
+  "attacker": {
+   "accounts": 50,
+   "join_deposits_near": 0.5,
+   "contract_calls": 4126,
+   "gas_near_per_call_assumed": 0.0005,
+   "estimated_gas_near": 2.063,
+   "total_cost_near_estimate": 2.563,
+   "farm_loans": 705,
+   "farm_volume": 945000,
+   "bonus_farmed": 98900,
+   "bonus_farmed_share_of_all_bonus": 0.6707,
+   "max_farm_bonus_per_day_theoretical": 5000,
+   "farm_bonus_per_day_observed": 1676,
+   "days_to_empty_full_pool_at_max_rate": 2000,
+   "days_to_empty_remaining_pool_at_max_rate": 1971,
+   "estimated_gas_near_per_utang_farmed": 0.00209,
+   "accounts_needed_to_empty_pool_in_60_days": 1667,
+   "cost_near_to_empty_pool_in_60_days": 166.7,
+   "best_honest_leaderboard_rank": 48,
+   "attacker_accounts_in_top10": 10,
+   "prime_loans_approved": 626,
+   "prime_loans_counted": 626,
+   "honest_limit_growth_from_attacker_repayments": 626000,
+   "extracted_on_primed_pairs": 669800,
+   "extracted_at_first_loan_cap": 4000,
+   "unprimed_extraction_bound": 225000,
+   "run_asks": 214,
+   "run_loans_approved_by_honest": 180,
+   "honest_lenders_hit": 39,
+   "coins_extracted_borrow_and_run": 673800,
+   "extracted_still_unpaid": 673800,
+   "runner_trust_at_run_start_avg": 165.9,
+   "runner_trust_at_run_start_max": 205,
+   "attacker_trust_final_avg": 256.0,
+   "attacker_trust_final_max": 690,
+   "attacker_accounts_blocked_at_end": 45,
+   "honest_max_trust_final": 175,
+   "attacker_coins_held_final": 787700,
+   "attacker_cashout_balance_final": 749250
+  }
+ },
+ "pool_stress": {
+  "scenario": "pool_stress",
+  "rules": "v2",
+  "players": 10000,
+  "join_deposits_near": 100.0,
+  "loans_requested": 321387,
+  "loans_approved": 228846,
+  "loans_declined": 90253,
+  "total_lent": 328245900,
+  "total_repaid_on_time": 290280400,
+  "total_repaid_late": 8600600,
+  "counted_repayments": 130714,
+  "uncounted_on_time_repayments": 74208,
+  "loans_marked_overdue": 15647,
+  "intended_on_time_share": 0.9508,
+  "players_walked_away": 4069,
+  "refinance_asks": 6562,
+  "late_for_lack_of_coins": 659,
+  "transfers": 797565,
+  "final_total_supply": 39364900,
+  "peak_total_supply": 39364900,
+  "peak_supply_day": 60,
+  "final_outstanding": 29364900,
+  "final_overdue_outstanding": 13642600,
+  "final_frozen_balance": 15201481,
+  "bonus_minted": 10000000,
+  "bonus_pool_left": 0,
+  "bonus_pool_empty_day": 45,
+  "final_trust_index_bps": 9288,
+  "min_trust_index_bps": 9284,
+  "final_players_with_overdue": 4546,
+  "honest": {
+   "players": 10000,
+   "loans_approved": 228846,
+   "total_lent": 328245900,
+   "loans_repaid_on_time": 204922,
+   "counted_repayments": 130714,
+   "loans_repaid_late": 6269,
+   "loans_past_due_unpaid_at_end": 9490,
+   "past_due_unpaid_principal_at_end": 13642600,
+   "loans_not_yet_due_at_end": 8165,
+   "realized_on_time_share": 0.9286,
+   "bonus_received": 10000000,
+   "avg_trust": 156.85,
+   "max_trust": 465,
+   "median_lending_limit": 9225,
+   "max_lending_limit": 71000,
+   "players_at_max_limit": 0
+  },
+  "trust_distribution": {
+   "honest": {
+    "players": 10000,
+    "levels": {
+     "1": 1941,
+     "2": 980,
+     "3": 1305,
+     "4": 1890,
+     "5": 2133,
+     "6": 1323,
+     "7": 373,
+     "8": 48,
+     "9": 5,
+     "10": 2
+    },
+    "trust_p10": 7,
+    "trust_p50": 172,
+    "trust_p90": 272,
+    "trust_max": 465
+   }
+  },
+  "leaderboard_top10": [
+   {
+    "id": 6563,
+    "kind": "honest",
+    "trust": 465,
+    "level": 10,
+    "loans_repaid_on_time": 26
+   },
+   {
+    "id": 5094,
+    "kind": "honest",
+    "trust": 457,
+    "level": 10,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 9490,
+    "kind": "honest",
+    "trust": 430,
+    "level": 9,
+    "loans_repaid_on_time": 21
+   },
+   {
+    "id": 6903,
+    "kind": "honest",
+    "trust": 420,
+    "level": 9,
+    "loans_repaid_on_time": 24
+   },
+   {
+    "id": 5185,
+    "kind": "honest",
+    "trust": 415,
+    "level": 9,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 5747,
+    "kind": "honest",
+    "trust": 400,
+    "level": 9,
+    "loans_repaid_on_time": 25
+   },
+   {
+    "id": 1350,
+    "kind": "honest",
+    "trust": 400,
+    "level": 9,
+    "loans_repaid_on_time": 21
+   },
+   {
+    "id": 5817,
+    "kind": "honest",
+    "trust": 397,
+    "level": 8,
+    "loans_repaid_on_time": 22
+   },
+   {
+    "id": 247,
+    "kind": "honest",
+    "trust": 395,
+    "level": 8,
+    "loans_repaid_on_time": 23
+   },
+   {
+    "id": 5824,
+    "kind": "honest",
+    "trust": 392,
+    "level": 8,
+    "loans_repaid_on_time": 23
+   }
+  ],
+  "supply_bound_holds": true,
+  "invariant_checks_passed": 60
+ }
+}

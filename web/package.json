@@ -1,0 +1,38 @@
+{
+  "name": "utang-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "sync-sim": "node scripts/sync-sim.mjs",
+    "check-live": "LIVE_CONTRACT_ID=${LIVE_CONTRACT_ID:-demo.utang-game.testnet} vitest run src/near/live.test.ts"
+  },
+  "dependencies": {
+    "@near-js/providers": "2.5.1",
+    "@near-wallet-selector/core": "10.1.4",
+    "@near-wallet-selector/here-wallet": "10.1.4",
+    "@near-wallet-selector/meteor-wallet": "10.1.4",
+    "@near-wallet-selector/modal-ui": "10.1.4",
+    "@near-wallet-selector/my-near-wallet": "10.1.4",
+    "buffer": "6.0.3",
+    "phaser": "4.2.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zzfx": "1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.1",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "@vitejs/plugin-react": "5.1.4",
+    "jsdom": "27.0.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.8",
+    "vitest": "4.1.12"
+  }
+}
