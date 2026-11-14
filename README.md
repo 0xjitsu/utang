@@ -1,39 +1,190 @@
+<div align="center">
+
 # $UTANG — the neighbourhood trust game
 
-> Built at NEAR HACKATHON · Tracks: **Memecoins With Mechanics** · **Games With Real Economies**
+**The sari-sari store's IOU notebook, rebuilt on NEAR as a memecoin with no starting supply. Every coin is a loan between neighbours.**
 
-In every Filipino neighbourhood there is a **sari-sari store**: a tiny shop in the front window of someone's house. When you're short on cash, the owner lets you take what you need and writes it in a notebook, the **listahan**. You pay later. The notebook only works because neighbours keep their word.
+[![NEAR testnet](https://img.shields.io/badge/NEAR-testnet-00EC97?logo=near&logoColor=white)](https://testnet.nearblocks.io/address/utang-game.testnet)
+[![Track 11](https://img.shields.io/badge/Track%2011-Memecoins%20With%20Mechanics-f5b700)](https://nearhackathon.com/)
+[![Track 09](https://img.shields.io/badge/Track%2009-Games%20With%20Real%20Economies-c0392b)](https://nearhackathon.com/)
+[![NEP-141](https://img.shields.io/badge/NEP--141-token-222)](https://github.com/near/NEPs/blob/master/neps/nep-0141.md)
+[![NEP-145](https://img.shields.io/badge/NEP--145-storage-222)](https://github.com/near/NEPs/blob/master/neps/nep-0145.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](#license)
 
-**$UTANG turns that notebook into a multiplayer game and a memecoin on NEAR.**
+<img src="docs/media/02-street.gif" alt="Walking the Hulo street to a neighbour's sari-sari store" width="760">
 
-You run a little sari-sari store. Other players are your neighbours. They come to borrow, you decide whether to trust them, and everyone competes to become the most trusted person on the street.
+### ▶ [Watch the 30-second demo (with sound)](docs/media/utang-demo-v6.mp4)
 
-The coin, $UTANG (*utang* = debt), has **no starting supply**. Nobody can buy it at launch and there is no team allocation. The only way a coin comes into existence is that **one neighbour lends to another**. Repay on time and the debt disappears, both players gain trust, and you share a small bonus. Miss the due date and the loan is marked overdue, and the borrower's coins stay frozen until they pay.
-
-So the supply of $UTANG is a live measure of **how much a community trusts each other**.
+</div>
 
 ---
 
-## Judges: start here
+## 50 fake accounts emptied our bonus pool in 22 days
 
-Preview mode, no wallet. Requires Node 20+.
+<img src="docs/media/01-hook.gif" alt="50 fake accounts emptied our bonus pool" width="420" align="right">
+
+That was our **first design**, in our own 60-day simulation. A single player with 50 fake accounts lent to themselves in loops and farmed **99,876.00 of the 100,000.00 UTANG bonus pool by day 22**.
+
+So we rewrote the rules before shipping. Same attacker, same seeds, final rules: **989.00 farmed in 60 days**, and the pool would last about 2,000 days. A patient borrow-and-run attacker dropped from **12,081.00 to 6,738.00**. Honest players lost nothing (median lending limit 35.00 → **41.62**).
+
+Every number above comes from [`sim/output/summary.md`](sim/output/summary.md) and can be re-run with one command.
+
+<br clear="right">
+
+## What it is
+
+In every Filipino neighbourhood there is a **sari-sari store**. When you're short, the owner writes your debt in the **listahan** notebook and you pay later. It only works because neighbours keep their word.
+
+In $UTANG you run a store, your neighbours are other players, and **the only way a coin is ever created is one neighbour lending to another**. Repay on time: the debt burns, both of you gain trust, and you split a small bonus. Miss the due date: you're frozen until you pay (*bayad muna*). The total supply is a live reading of **how much a community trusts itself**.
+
+## Gameplay
+
+| Ask a neighbour | Repay and the ★ counts |
+|---|---|
+| <img src="docs/media/03-ask.gif" alt="Asking aling-nena for 10 UTANG" width="380"> | <img src="docs/media/04-repay.gif" alt="Repaying a loan on time" width="380"> |
+| **The listahan and the live economy** | **No team allocation, no presale** |
+| <img src="docs/media/05-economy.gif" alt="Listahan and Economy screen" width="380"> | <img src="docs/media/06-endcard.gif" alt="$UTANG end card" width="380"> |
+
+<details>
+<summary>Full-resolution screenshots</summary>
+
+| | |
+|---|---|
+| <img src="docs/media/still-street.png" alt="Street" width="400"> | <img src="docs/media/still-ask.png" alt="Ask dialog" width="400"> |
+| <img src="docs/media/still-listahan.png" alt="Listahan" width="400"> | <img src="docs/media/still-economy.png" alt="Economy" width="400"> |
+| <img src="docs/media/still-leaderboard.png" alt="Leaderboard" width="400"> | <img src="docs/media/end-card.png" alt="End card" width="400"> |
+
+</details>
+
+---
+
+## How to play
+
+### Humans (60 seconds, no wallet)
+
+Requires Node 20+.
 
 ```bash
 cd web && npm install && npm run dev
 ```
 
-Open [http://localhost:5173/?judge=1](http://localhost:5173/?judge=1). You land on the Hulo street already signed in.
+Open **[http://localhost:5173/?judge=1](http://localhost:5173/?judge=1)**. Judge mode drops you on the Hulo street already signed in, in Preview mode (in-browser mock of the contract, 1 day = 1 minute).
 
-1. Walk (arrow keys or WASD; E or tap a house to visit). Follow the arrow to **aling-nena**.
-2. Choose **Pa-utang po**. 20 is refused (pair credit starts at 10.00); ask for **10** for a few days.
+1. Walk with arrow keys or WASD (E or tap a house to visit). Follow the arrow to **aling-nena**.
+2. Choose **Pa-utang po**. Ask for 20 and you're refused (a new pair's credit is 10.00); ask for **10** for a few days.
 3. Open **≡** and press **Skip 1 day** until **Repay ★ counts** appears, then repay.
-4. Open **Economy** for live supply and the 60-day simulation.
+4. Open **Economy** for live supply, the trust index and the 60-day simulation.
 
-Sister entry (same hackathon, separate project): [GHOST WAFER](https://github.com/0xjitsu/ghost-wafer).
+To play for real, copy `web/.env.example` to `web/.env.local` and connect a testnet wallet (MyNearWallet, Meteor or HERE). Details in [Run the game](#run-the-game-frontend).
+
+### AI agents (straight to the contract)
+
+The game has no server: everything is in the contract, so an agent plays with exactly the same methods as the web app. Use the demo contract **`demo.utang-game.testnet`** (1 day = 1 minute) or **`utang-game.testnet`** (real days). Amounts are U128 strings in **centavos** (`"1000"` = 10.00 UTANG). Full spec: [`docs/INTERFACE.md`](docs/INTERFACE.md).
+
+With [near-cli-rs](https://github.com/near/near-cli-rs), using your own testnet account (`<you>.testnet`):
+
+```bash
+C=demo.utang-game.testnet
+
+# Read the rules and the economy (no account needed)
+near contract call-function as-read-only $C rules json-args '{}' network-config testnet now
+near contract call-function as-read-only $C stats json-args '{}' network-config testnet now
+near contract call-function as-read-only $C leaderboard json-args '{"limit":10}' network-config testnet now
+
+# 1. Join the neighbourhood (NEP-145 storage deposit, 0.01 NEAR)
+near contract call-function as-transaction $C storage_deposit json-args '{}' \
+  prepaid-gas '30.0 Tgas' attached-deposit '0.01 NEAR' \
+  sign-as <you>.testnet network-config testnet sign-with-legacy-keychain send
+
+# 2. Check how much you can borrow from a neighbour, then ask (10.00 UTANG for 3 days)
+near contract call-function as-read-only $C pair_credit json-args '{"a":"<you>.testnet","b":"ana.utang-game.testnet"}' network-config testnet now
+near contract call-function as-transaction $C ask json-args '{"lender":"ana.utang-game.testnet","amount":"1000","days":3}' \
+  prepaid-gas '30.0 Tgas' attached-deposit '0 NEAR' \
+  sign-as <you>.testnet network-config testnet sign-with-legacy-keychain send
+
+# 3. As a lender: approve a request addressed to you (mints the loan to the borrower)
+near contract call-function as-transaction $C approve json-args '{"loan_id":0}' \
+  prepaid-gas '30.0 Tgas' attached-deposit '0 NEAR' \
+  sign-as <you>.testnet network-config testnet sign-with-legacy-keychain send
+
+# 4. As a borrower: repay (burns the debt; trust + bonus if the repayment counts)
+near contract call-function as-transaction $C repay json-args '{"loan_id":0}' \
+  prepaid-gas '30.0 Tgas' attached-deposit '0 NEAR' \
+  sign-as <you>.testnet network-config testnet sign-with-legacy-keychain send
+
+# Anyone, any time: enforce the rules on a past-due loan
+near contract call-function as-transaction $C mark_overdue json-args '{"loan_id":0}' \
+  prepaid-gas '30.0 Tgas' attached-deposit '0 NEAR' \
+  sign-as <you>.testnet network-config testnet sign-with-legacy-keychain send
+```
+
+Your `loan_id` is returned by `ask`; also see `loans_of({"account_id":…})`, `listahan`, `overdue`, `profile` and `players` in the [method table](#contract-methods). An agent strategy is just a policy over these calls: whom to lend to (read `profile` trust and `loans_of` history), how much (`pair_credit`), and when to call `mark_overdue`. The same rules bind agents and humans; the [threat model](#limits-and-the-honest-threat-model) says plainly what fake-account agents can and can't get.
+
+Never paste private keys into prompts, code or `.env` files; `sign-with-legacy-keychain` finds the key by account name.
 
 ---
 
-## The game
+## Why it should win
+
+Judging, per [nearhackathon.com](https://nearhackathon.com/) and the [track prompts](https://github.com/nearai/near-hackathon-prompt-examples): AI judges first check that the project runs and does what this README says; human judges weigh technical implementation, design, impact, originality and sustainability. Track 11 is "judged on the mechanic, not the chart"; Track 09 is "judged on the game loop, not the token — bonus if players never notice the chain".
+
+| Criterion | Evidence in this repo |
+|---|---|
+| **Track 11: the mechanic** | Zero starting supply; coins are minted only by an approved loan and burned on repayment ([`contract/src/lib.rs`](contract/src/lib.rs)). Supply = outstanding trust. Bonus pool hard-capped at 100,000.00 forever. |
+| **Track 11 prompt requirements** | NEP-141 with the mechanic in the contract, no backend · every parameter fixed at deploy and public via `rules()`, no admin setter · Sybil limits written plainly ([threat model](#limits-and-the-honest-threat-model)) · a page with live supply and a log of every mint and burn (Economy + Listahan) · **60 days simulated first, then parameters picked** ([`sim/`](sim/)) |
+| **Track 09: the game loop** | Walkable Phaser street, ask → approve → wait → repay → level up; trust unlocks bigger limits. Preview mode needs no wallet at all, so players never touch the chain until they choose Live. |
+| **Technical implementation** | Rust `near-sdk` 5.30 contract with NEP-141 + NEP-145 and NEP-297 events; 62 contract unit tests in both time modes; 72 web tests; deterministic simulator that mirrors [`docs/INTERFACE.md`](docs/INTERFACE.md). Deployed: [`utang-game.testnet`](https://testnet.nearblocks.io/address/utang-game.testnet) and [`demo.utang-game.testnet`](https://testnet.nearblocks.io/address/demo.utang-game.testnet). |
+| **Design** | Pixel-art sari-sari street set in Mandaluyong's 27 barangays (OpenStreetMap boundaries), Filipino copy, ZzFX sound, a 30-second demo cut. |
+| **Originality** | A memecoin whose supply *is* a community's IOU book: a real informal-credit ritual turned into an onchain mechanic. |
+| **Impact** | Informal store credit is everyday finance in the Philippines; $UTANG makes repayment history portable and public by account name, with no personal data stored (only a barangay name). |
+| **Sustainability / honesty** | The simulation caught our own farmable first design (pool empty on day 22) and we fixed it before launch. What we **didn't** solve is written down: fake accounts can still out-rank honest players, and a patient borrow-and-run attacker can still extract 6,738.00. |
+| **Reproducibility (AI screening)** | One command each: `python3 simulate.py`, `cargo test`, `npm test`, `npm run dev` → `?judge=1`. |
+
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph Browser["web/ — Vite + React + Phaser 4"]
+    UI["Store · Listahan · Neighbours · Leaderboard · Economy"]
+    Street["Phaser street + ZzFX sound"]
+    Mock["Preview: in-browser mock contract"]
+  end
+  UI -->|"?judge=1 / no .env"| Mock
+  UI -->|"Live: wallet selector + RPC"| C
+  Agent["AI agent / near-cli"] -->|"same methods"| C
+  subgraph NEAR["NEAR testnet"]
+    C["contract/ — Rust near-sdk<br/>NEP-141 token · NEP-145 storage<br/>loans · trust · capped bonus pool"]
+  end
+  Sim["sim/ — 60-day Python model"] -->|"JSON → Economy screen"| UI
+  Mock -. "same interface" .- C
+```
+
+The mock, the Rust contract and the simulator all follow [`docs/INTERFACE.md`](docs/INTERFACE.md).
+
+## Built with
+
+| Layer | Tools |
+|---|---|
+| **Blockchain** | [NEAR Protocol](https://near.org/) testnet · [near-sdk-rs 5.30](https://github.com/near/near-sdk-rs) · [near-contract-standards](https://docs.rs/near-contract-standards) · [NEP-141 fungible token](https://github.com/near/NEPs/blob/master/neps/nep-0141.md) · [NEP-145 storage management](https://github.com/near/NEPs/blob/master/neps/nep-0145.md) · [NEP-297 events](https://github.com/near/NEPs/blob/master/neps/nep-0297.md) · [cargo-near](https://github.com/near/cargo-near) · [near-cli-rs](https://github.com/near/near-cli-rs) |
+| **Wallets and RPC** | [NEAR Wallet Selector](https://github.com/near/wallet-selector) (MyNearWallet, Meteor Wallet, HERE Wallet modules) · [@near-js/providers](https://github.com/near/near-api-js) (from the near-api-js family) · [FastNEAR](https://fastnear.com/) testnet RPC · [NearBlocks](https://testnet.nearblocks.io/address/utang-game.testnet) explorer |
+| **Game** | [Vite 7](https://vite.dev/) · [React 18](https://react.dev/) · [TypeScript](https://www.typescriptlang.org/) · [Phaser 4](https://phaser.io/) · [ZzFX](https://github.com/KilledByAPixel/ZzFX) (MIT, sound effects) · [OpenStreetMap](https://www.openstreetmap.org/copyright) (barangay boundaries, ODbL) |
+| **Tests** | [Vitest](https://vitest.dev/) · [jsdom](https://github.com/jsdom/jsdom) · Rust `cargo test` with near-sdk `unit-testing` |
+| **Simulation** | [Python 3](https://www.python.org/) standard library only |
+| **Demo video** | [Playwright](https://playwright.dev/) (captures) · [FFmpeg](https://ffmpeg.org/) (cuts, GIFs) · [NumPy](https://numpy.org/) (procedurally synthesised budots soundtrack; no copyrighted audio) |
+
+**Planned, not built yet:** a public token launch via [meme.cooking](https://meme.cooking/) once the rules are frozen; agent players wired through OutLayer or listed on Agent Market. None of these are integrated in this repository today.
+
+## Team
+
+- **Berna** — [@stickoyum](https://x.com/stickoyum) · [github.com/stickoyum](https://github.com/stickoyum)
+- **mxber2022** — [github.com/mxber2022](https://github.com/mxber2022)
+
+Sister entry at the same hackathon (separate, independent project): **GHOST WAFER**.
+
+---
+
+<details>
+<summary><b>The full game: screens and daily loop</b></summary>
 
 | Screen | What you do there |
 |---|---|
@@ -58,7 +209,10 @@ The game is set in **Mandaluyong City**, Metro Manila. When you join you pick yo
 
 Everything that matters (loans, balances, trust, the player list, barangays) lives **in the contract**. The game has no server. If the website disappeared, the rules and records would still be there on NEAR.
 
----
+</details>
+
+<details>
+<summary><b>How the coin works: rules, trust, parameters, supply</b></summary>
 
 ## How the coin works
 
@@ -134,7 +288,10 @@ Because bonuses come from a fixed pool, **total supply can never exceed outstand
 
 The Economy screen shows the **trust index**: the share of all lent $UTANG that came back on time.
 
----
+</details>
+
+<details>
+<summary><b>60-day simulation: all scenarios and the before/after table</b></summary>
 
 ## 60-day simulation
 
@@ -172,7 +329,7 @@ What the simulation says we **didn't** fix: fake accounts can still out-rank hon
 
 Full results: [`sim/output/summary.md`](sim/output/summary.md) · data: `sim/output/*.json`.
 
----
+</details>
 
 ## Limits and the honest threat model
 
@@ -201,16 +358,8 @@ The contract cannot know who is a real person. Trust in $UTANG measures how acco
 - **Fast, cheap transactions** make repaying 0.50 UTANG worth doing and make the game feel responsive.
 - Standards: **NEP-141** (fungible token), **NEP-145** (storage management).
 
-```mermaid
-flowchart LR
-  Web["web/  Vite + React + Phaser"] -->|Preview, no wallet| Mock["In-browser mock of the contract"]
-  Web -->|Live, wallet selector| Contract["contract/  Rust NEP-141 + loans on NEAR testnet"]
-  Sim["sim/  60-day Python model"] -->|JSON on the Economy screen| Web
-```
-
-The mock and the Rust contract follow the same [interface](docs/INTERFACE.md). Judges can play the full loop in Preview without a wallet.
-
----
+<details>
+<summary><b>Developer reference: layout, contract methods, run it yourself, deployment, keys</b></summary>
 
 ## Repository layout
 
@@ -309,8 +458,8 @@ npm run check-live     # read-only check that the live contract's data matches t
 | Demo contract (1 day = 1 minute) | [`demo.utang-game.testnet`](https://testnet.nearblocks.io/address/demo.utang-game.testnet) |
 | Token | `UTANG`, 2 decimals, NEP-141 (on both contracts) |
 | Test players (on the demo contract) | [`ana.utang-game.testnet`](https://testnet.nearblocks.io/address/ana.utang-game.testnet) (Hulo), [`ben.utang-game.testnet`](https://testnet.nearblocks.io/address/ben.utang-game.testnet) (New Zañiga) |
-| Game | *to be deployed* |
-| Demo post | *to be posted* |
+| Game | run locally (`cd web && npm run dev`); public hosting *to be deployed* |
+| Demo video | [`docs/media/utang-demo-v6.mp4`](docs/media/utang-demo-v6.mp4) (30 s) |
 
 Private keys are never published in this repository. To play live, use your own testnet account (see [Run the game](#run-the-game-frontend)).
 
@@ -373,6 +522,8 @@ near account delete-keys demo.utang-game.testnet public-keys ed25519:<CONTRACT_P
 
 Both contracts run the same code; the demo build only shortens the day so a full loan cycle (ask → approve → wait a "day" → repay with bonus) fits in a video. Check with `near contract call-function as-read-only demo.utang-game.testnet rules json-args '{}' network-config testnet now`: `demo_time` is `true` there and `false` on the main contract.
 
+</details>
+
 ## Status
 
 - [x] 60-day simulation
@@ -387,7 +538,8 @@ Both contracts run the same code; the demo build only shortens the day so a full
 - [x] Wallet connection and live contract data
 - [x] Walkable street scene (Phaser) with sound effects
 - [ ] Publish the game online
-- [ ] Demo video + post on X
+- [x] Demo video ([30 s cut](docs/media/utang-demo-v6.mp4))
+- [ ] Demo post on X
 
 ## Glossary
 
@@ -401,4 +553,4 @@ Both contracts run the same code; the demo build only shortens the day so a full
 
 ## License
 
-MIT
+MIT. Sound effects use [ZzFX](https://github.com/KilledByAPixel/ZzFX) (MIT); map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors; see [`web/CREDITS.md`](web/CREDITS.md).
