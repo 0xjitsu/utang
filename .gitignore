@@ -63,3 +63,4 @@ Thumbs.db
 .claude/
 tmp/
 *.tmp
+.vercel

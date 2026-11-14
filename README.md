@@ -13,6 +13,10 @@
 
 <img src="docs/media/02-street.gif" alt="Walking the Hulo street to a neighbour's sari-sari store" width="760">
 
+### ▶ Play in browser: [https://utang-game.vercel.app](https://utang-game.vercel.app)
+
+Judges, start here: [https://utang-game.vercel.app/?judge=1](https://utang-game.vercel.app/?judge=1)
+
 ### ▶ [Watch the 30-second demo (with sound)](docs/media/utang-demo-v6.mp4)
 
 </div>
@@ -62,20 +66,16 @@ In $UTANG you run a store, your neighbours are other players, and **the only way
 
 ### Humans (60 seconds, no wallet)
 
-Requires Node 20+.
+**▶ Play in browser: [https://utang-game.vercel.app](https://utang-game.vercel.app)**
 
-```bash
-cd web && npm install && npm run dev
-```
-
-Open **[http://localhost:5173/?judge=1](http://localhost:5173/?judge=1)**. Judge mode drops you on the Hulo street already signed in, in Preview mode (in-browser mock of the contract, 1 day = 1 minute).
+Open **[https://utang-game.vercel.app/?judge=1](https://utang-game.vercel.app/?judge=1)**. Judge mode drops you on the Hulo street already signed in. The hosted game talks to [`demo.utang-game.testnet`](https://testnet.nearblocks.io/address/demo.utang-game.testnet) (1 day = 1 minute). No install, no wallet required to try it.
 
 1. Walk with arrow keys or WASD (E or tap a house to visit). Follow the arrow to **aling-nena**.
 2. Choose **Pa-utang po**. Ask for 20 and you're refused (a new pair's credit is 10.00); ask for **10** for a few days.
 3. Open **≡** and press **Skip 1 day** until **Repay ★ counts** appears, then repay.
 4. Open **Economy** for live supply, the trust index and the 60-day simulation.
 
-To play for real, copy `web/.env.example` to `web/.env.local` and connect a testnet wallet (MyNearWallet, Meteor or HERE). Details in [Run the game](#run-the-game-frontend).
+To run it locally instead: `cd web && npm install && npm run dev`, then open [http://localhost:5173/?judge=1](http://localhost:5173/?judge=1) (Preview mode, in-browser mock). To play against the live contract from your machine, copy `web/.env.example` to `web/.env.local` and connect a testnet wallet (MyNearWallet, Meteor or HERE). Details in [Run the game](#run-the-game-frontend).
 
 ### AI agents (straight to the contract)
 
@@ -458,7 +458,7 @@ npm run check-live     # read-only check that the live contract's data matches t
 | Demo contract (1 day = 1 minute) | [`demo.utang-game.testnet`](https://testnet.nearblocks.io/address/demo.utang-game.testnet) |
 | Token | `UTANG`, 2 decimals, NEP-141 (on both contracts) |
 | Test players (on the demo contract) | [`ana.utang-game.testnet`](https://testnet.nearblocks.io/address/ana.utang-game.testnet) (Hulo), [`ben.utang-game.testnet`](https://testnet.nearblocks.io/address/ben.utang-game.testnet) (New Zañiga) |
-| Game | run locally (`cd web && npm run dev`); public hosting *to be deployed* |
+| Game | **[https://utang-game.vercel.app](https://utang-game.vercel.app)** (public, no login). Judges: [https://utang-game.vercel.app/?judge=1](https://utang-game.vercel.app/?judge=1). Hosted build talks to `demo.utang-game.testnet`. |
 | Demo video | [`docs/media/utang-demo-v6.mp4`](docs/media/utang-demo-v6.mp4) (30 s) |
 
 Private keys are never published in this repository. To play live, use your own testnet account (see [Run the game](#run-the-game-frontend)).
