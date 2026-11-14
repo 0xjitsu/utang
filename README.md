@@ -14,6 +14,25 @@ So the supply of $UTANG is a live measure of **how much a community trusts each 
 
 ---
 
+## Judges: start here
+
+Preview mode, no wallet. Requires Node 20+.
+
+```bash
+cd web && npm install && npm run dev
+```
+
+Open [http://localhost:5173/?judge=1](http://localhost:5173/?judge=1). You land on the Hulo street already signed in.
+
+1. Walk (arrow keys or WASD; E or tap a house to visit). Follow the arrow to **aling-nena**.
+2. Choose **Pa-utang po**. 20 is refused (pair credit starts at 10.00); ask for **10** for a few days.
+3. Open **≡** and press **Skip 1 day** until **Repay ★ counts** appears, then repay.
+4. Open **Economy** for live supply and the 60-day simulation.
+
+Sister entry (same hackathon, separate project): [GHOST WAFER](https://github.com/0xjitsu/ghost-wafer).
+
+---
+
 ## The game
 
 | Screen | What you do there |
@@ -181,6 +200,15 @@ The contract cannot know who is a real person. Trust in $UTANG measures how acco
 - **Storage deposits** give every account a real, small cost, our first line against fake accounts.
 - **Fast, cheap transactions** make repaying 0.50 UTANG worth doing and make the game feel responsive.
 - Standards: **NEP-141** (fungible token), **NEP-145** (storage management).
+
+```mermaid
+flowchart LR
+  Web["web/  Vite + React + Phaser"] -->|Preview, no wallet| Mock["In-browser mock of the contract"]
+  Web -->|Live, wallet selector| Contract["contract/  Rust NEP-141 + loans on NEAR testnet"]
+  Sim["sim/  60-day Python model"] -->|JSON on the Economy screen| Web
+```
+
+The mock and the Rust contract follow the same [interface](docs/INTERFACE.md). Judges can play the full loop in Preview without a wallet.
 
 ---
 
@@ -350,7 +378,7 @@ Both contracts run the same code; the demo build only shortens the day so a full
 - [ ] Delete the contracts' keys (final deploy)
 - [x] Game: My Store, Listahan, Neighbours, Leaderboard, Economy
 - [x] Wallet connection and live contract data
-- [ ] Walkable street scene (Phaser) with sound effects
+- [x] Walkable street scene (Phaser) with sound effects
 - [ ] Publish the game online
 - [ ] Demo video + post on X
 
