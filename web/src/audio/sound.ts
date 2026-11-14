@@ -1,5 +1,6 @@
 // Generated sound effects with ZzFX (MIT). ZzFX creates an AudioContext when imported, so it is
 // only imported after the first user gesture (browsers block audio before that anyway).
+// Background music is our own procedural budots bed (/bgm.mp3), on by default.
 // Settings (muted, volume, music) are remembered in localStorage.
 
 import { bus } from "../game/bus";
@@ -53,16 +54,36 @@ export interface SoundSettings {
 }
 
 const KEY = "utang-sound";
-const DEFAULTS: SoundSettings = { muted: false, volume: 0.6, music: false };
+const SETTINGS_VERSION = 2;
+const DEFAULTS: SoundSettings = { muted: false, volume: 0.6, music: true };
+const BGM_SRC = "/bgm.mp3";
+const BGM_VOLUME = 0.35; // absolute bed level at the default volume slider (0.6)
 
 function load(): SoundSettings {
   try {
     const raw = globalThis.localStorage?.getItem(KEY);
-    if (raw) return { ...DEFAULTS, ...JSON.parse(raw) };
+    if (raw) {
+      const saved = JSON.parse(raw) as Partial<SoundSettings> & { v?: number };
+      // v1 defaulted music to off (there was only a generated loop). Turn the new bed on once.
+      const music = (saved.v ?? 0) >= SETTINGS_VERSION ? !!saved.music : true;
+      return {
+        muted: !!saved.muted,
+        volume: typeof saved.volume === "number" ? Math.min(1, Math.max(0, saved.volume)) : DEFAULTS.volume,
+        music,
+      };
+    }
   } catch {
     /* ignore */
   }
   return { ...DEFAULTS };
+}
+
+function persist() {
+  try {
+    globalThis.localStorage?.setItem(KEY, JSON.stringify({ ...settings, v: SETTINGS_VERSION }));
+  } catch {
+    /* ignore */
+  }
 }
 
 let settings = load();
@@ -82,11 +103,7 @@ export function onSoundSettings(fn: (s: SoundSettings) => void): () => void {
 
 export function setSoundSettings(patch: Partial<SoundSettings>) {
   settings = { ...settings, ...patch };
-  try {
-    globalThis.localStorage?.setItem(KEY, JSON.stringify(settings));
-  } catch {
-    /* ignore */
-  }
+  persist();
   applyVolume();
   if (settings.music && !settings.muted) startMusic();
   else stopMusic();
@@ -95,12 +112,15 @@ export function setSoundSettings(patch: Partial<SoundSettings>) {
 
 function applyVolume() {
   if (zz) zz.ZZFX.volume = 0.5 * settings.volume;
+  if (bed) bed.volume = bedVolume();
 }
 
 /** Call from a user gesture. Loads ZzFX and resumes the audio context. */
 export function unlockAudio(): Promise<void> {
-  if (typeof window === "undefined" || typeof AudioContext === "undefined") return Promise.resolve();
+  if (typeof window === "undefined") return Promise.resolve();
   unlocked = true;
+  startMusic();
+  if (typeof AudioContext === "undefined") return Promise.resolve();
   if (!loading) {
     loading = import("zzfx")
       .then((m) => {
@@ -115,6 +135,7 @@ export function unlockAudio(): Promise<void> {
   } else if (zz) void zz.ZZFX.audioContext.resume?.();
   return (loading ?? Promise.resolve()).then(() => {
     playStartSting();
+    startMusic();
   });
 }
 
@@ -210,31 +231,40 @@ export function play(name: SfxName | string) {
   }
 }
 
-// ------------------------------------------------------------------ calm generated chiptune loop
+// ------------------------------------------------------------------ looping procedural budots bed
 
-const MELODY = [
-  // C major pentatonic, gentle; 0 = rest. One eighth note per step.
-  523, 0, 659, 0, 784, 659, 587, 0, 523, 0, 440, 0, 392, 0, 0, 0,
-  440, 0, 523, 0, 587, 523, 440, 0, 392, 0, 440, 523, 587, 0, 0, 0,
-];
-const BASS = [131, 0, 0, 0, 196, 0, 0, 0, 110, 0, 0, 0, 165, 0, 0, 0];
-let musicTimer: ReturnType<typeof setInterval> | null = null;
-let musicStep = 0;
+let bed: HTMLAudioElement | null = null;
+
+function bedVolume() {
+  return Math.max(0, Math.min(1, BGM_VOLUME * (settings.volume / 0.6)));
+}
+
+function ensureBed() {
+  if (typeof Audio === "undefined") return null;
+  if (!bed) {
+    bed = new Audio(BGM_SRC);
+    bed.loop = true;
+    bed.preload = "auto";
+    bed.volume = bedVolume();
+  }
+  return bed;
+}
 
 function startMusic() {
-  if (musicTimer || !zz) return;
-  musicTimer = setInterval(() => {
-    const m = MELODY[musicStep % MELODY.length];
-    const b = BASS[musicStep % BASS.length];
-    if (m) raw([0.09, 0, m, 0.02, 0.08, 0.25, 0, 1], 1);
-    if (b) raw([0.1, 0, b, 0.02, 0.2, 0.4, 1, 1], 1);
-    musicStep++;
-  }, 300);
+  if (settings.muted || !settings.music) {
+    stopMusic();
+    return;
+  }
+  const a = ensureBed();
+  if (!a) return;
+  a.volume = bedVolume();
+  const attempt = a.play();
+  if (attempt) void attempt.catch(() => { /* autoplay blocked; retry on the next gesture */ });
 }
 
 function stopMusic() {
-  if (musicTimer) clearInterval(musicTimer);
-  musicTimer = null;
+  if (!bed) return;
+  bed.pause();
 }
 
 // ------------------------------------------------------------------ wiring
@@ -247,14 +277,18 @@ export function installSound() {
   installed = true;
   // Browsers only grant audio unlock on a real user gesture. pointerdown/touchstart are requested
   // for the earliest tap; click/touchend/keydown are kept because they reliably carry user activation.
-  const gestureEvents = ["pointerdown", "touchstart", "keydown", "click", "touchend"] as const;
+  const gestureEvents = ["pointerdown", "touchstart", "keydown", "click", "touchend", "scroll"] as const;
   const gesture = () => {
+    startMusic();
     void unlockAudio().then(() => {
-      if (!zz) return;
+      const bedPlaying = !!bed && !bed.paused;
+      if (!zz && !bedPlaying) return;
+      if (settings.music && !settings.muted && !bedPlaying) return;
       for (const ev of gestureEvents) window.removeEventListener(ev, gesture, true);
     });
   };
   for (const ev of gestureEvents) window.addEventListener(ev, gesture, { capture: true });
+  startMusic();
   document.addEventListener(
     "click",
     (e) => {
