@@ -113,7 +113,18 @@ export function unlockAudio(): Promise<void> {
         zz = null;
       });
   } else if (zz) void zz.ZZFX.audioContext.resume?.();
-  return loading;
+  return (loading ?? Promise.resolve()).then(() => {
+    playStartSting();
+  });
+}
+
+let stingPlayed = false;
+
+/** Short welcome arpeggio on the first successful unlock. Skipped if muted. */
+function playStartSting() {
+  if (stingPlayed || !zz || settings.muted) return;
+  stingPlayed = true;
+  play("jingle");
 }
 
 export function isAudioUnlocked() {
@@ -234,11 +245,16 @@ let installed = false;
 export function installSound() {
   if (installed || typeof window === "undefined") return;
   installed = true;
-  // Only events that grant "user activation" (click/touchend/keydown, not pointerdown) may start audio.
-  const gesture = () => void unlockAudio();
-  window.addEventListener("click", gesture, { capture: true });
-  window.addEventListener("touchend", gesture, { capture: true });
-  window.addEventListener("keydown", gesture, { capture: true });
+  // Browsers only grant audio unlock on a real user gesture. pointerdown/touchstart are requested
+  // for the earliest tap; click/touchend/keydown are kept because they reliably carry user activation.
+  const gestureEvents = ["pointerdown", "touchstart", "keydown", "click", "touchend"] as const;
+  const gesture = () => {
+    void unlockAudio().then(() => {
+      if (!zz) return;
+      for (const ev of gestureEvents) window.removeEventListener(ev, gesture, true);
+    });
+  };
+  for (const ev of gestureEvents) window.addEventListener(ev, gesture, { capture: true });
   document.addEventListener(
     "click",
     (e) => {
