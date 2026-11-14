@@ -141,22 +141,6 @@ Never paste private keys into prompts, code or `.env` files; `sign-with-legacy-k
 
 ---
 
-## Why it should win
-
-Judging, per [nearhackathon.com](https://nearhackathon.com/) and the [track prompts](https://github.com/nearai/near-hackathon-prompt-examples): AI judges first check that the project runs and does what this README says; human judges weigh technical implementation, design, impact, originality and sustainability. Track 11 is "judged on the mechanic, not the chart"; Track 09 is "judged on the game loop, not the token — bonus if players never notice the chain".
-
-| Criterion | Evidence in this repo |
-|---|---|
-| **Track 11: the mechanic** | Zero starting supply; coins are minted only by an approved loan and burned on repayment ([`contract/src/lib.rs`](contract/src/lib.rs)). Supply = outstanding trust. Bonus pool hard-capped at 100,000.00 forever. |
-| **Track 11 prompt requirements** | NEP-141 with the mechanic in the contract, no backend · every parameter fixed at deploy and public via `rules()`, no admin setter · Sybil limits written plainly ([threat model](#limits-and-the-honest-threat-model)) · a page with live supply and a log of every mint and burn (Economy + Listahan) · **60 days simulated first, then parameters picked** ([`sim/`](sim/)) |
-| **Track 09: the game loop** | Walkable Phaser street, ask → approve → wait → repay → level up; trust unlocks bigger limits. Preview mode needs no wallet at all, so players never touch the chain until they choose Live. |
-| **Technical implementation** | Rust `near-sdk` 5.30 contract with NEP-141 + NEP-145 and NEP-297 events; 62 contract unit tests in both time modes; 72 web tests; deterministic simulator that mirrors [`docs/INTERFACE.md`](docs/INTERFACE.md). Deployed: [`utang-game.testnet`](https://testnet.nearblocks.io/address/utang-game.testnet) and [`demo.utang-game.testnet`](https://testnet.nearblocks.io/address/demo.utang-game.testnet). |
-| **Design** | Pixel-art sari-sari street set in Mandaluyong's 27 barangays (OpenStreetMap boundaries), Filipino copy, ZzFX sound, a 30-second demo cut. |
-| **Originality** | A memecoin whose supply *is* a community's IOU book: a real informal-credit ritual turned into an onchain mechanic. |
-| **Impact** | Informal store credit is everyday finance in the Philippines; $UTANG makes repayment history portable and public by account name, with no personal data stored (only a barangay name). |
-| **Sustainability / honesty** | The simulation caught our own farmable first design (pool empty on day 22) and we fixed it before launch. What we **didn't** solve is written down: fake accounts can still out-rank honest players, and a patient borrow-and-run attacker can still extract 6,738.00. |
-| **Reproducibility (AI screening)** | One command each: `python3 simulate.py`, `cargo test`, `npm test`, `npm run dev` → `?judge=1`. |
-
 ## Architecture
 
 ```mermaid
@@ -193,8 +177,8 @@ The mock, the Rust contract and the simulator all follow [`docs/INTERFACE.md`](d
 
 ## Team
 
-- **Berna** — [@stickoyum](https://x.com/stickoyum) · [github.com/stickoyum](https://github.com/stickoyum)
-- **mxber2022** — [github.com/mxber2022](https://github.com/mxber2022)
+- [stickoyum](https://github.com/stickoyum)
+- [mxber2022](https://github.com/mxber2022)
 
 Sister entry at the same hackathon (separate, independent project): **GHOST WAFER**.
 
@@ -540,23 +524,6 @@ near account delete-keys demo.utang-game.testnet public-keys ed25519:<CONTRACT_P
 Both contracts run the same code; the demo build only shortens the day so a full loan cycle (ask → approve → wait a "day" → repay with bonus) fits in a video. Check with `near contract call-function as-read-only demo.utang-game.testnet rules json-args '{}' network-config testnet now`: `demo_time` is `true` there and `false` on the main contract.
 
 </details>
-
-## Status
-
-- [x] 60-day simulation
-- [x] Contract: NEP-141 + NEP-145
-- [x] Contract: ask / approve / decline / cancel / repay / mark_overdue
-- [x] Contract: trust, lending limits, capped bonus pool, counted repayments, first-loan cap
-- [x] Contract: transfers blocked while overdue
-- [x] Contract tests (62 unit tests, normal and demo builds)
-- [x] Deploy to testnet
-- [ ] Delete the contracts' keys (final deploy)
-- [x] Game: My Store, Listahan, Neighbours, Leaderboard, Economy
-- [x] Wallet connection and live contract data
-- [x] Walkable street scene (Phaser) with sound effects
-- [ ] Publish the game online
-- [x] Demo video ([30 s cut](docs/media/utang-demo-v6.mp4))
-- [ ] Demo post on X
 
 ## Glossary
 
