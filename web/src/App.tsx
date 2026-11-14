@@ -177,7 +177,7 @@ function Shell() {
 
       <nav className="nav" aria-label="Game menu">
         {SCREENS.map((s) => (
-          <button key={s.id} className={`nav-btn${screen === s.id ? " nav-on" : ""}`} onClick={() => go(s.id)} aria-current={screen === s.id}>
+          <button key={s.id} className={`nav-btn${screen === s.id ? " nav-on" : ""}`} onClick={() => go(s.id)} aria-current={screen === s.id} aria-label={s.label}>
             <NavIcon id={s.id} size={22} />
             {s.short ? (
               <>

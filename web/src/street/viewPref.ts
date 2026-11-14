@@ -18,7 +18,9 @@ export function getViewPref(): View {
   } catch {
     /* ignore */
   }
-  return prefersReducedMotion() ? "simple" : "street";
+  // Reduced motion skips typewriter / jeepney motion (see reducedMotion());
+  // it should not hide the walkable street. Players can still pick Simple in the menu.
+  return "street";
 }
 
 export function setViewPref(v: View) {

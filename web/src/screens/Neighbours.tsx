@@ -68,6 +68,8 @@ export function Neighbours() {
       <div className="neighbour-grid">
         {list.map((p) => {
           const isMe = p.account_id === accountId;
+          const free = availableToLend(p);
+          const canLend = free > 0n;
           return (
             <article key={p.account_id} className={`neighbour${isMe ? " neighbour-me" : ""}`}>
               <button className="neighbour-open" onClick={() => bus.emit("open:profile", { accountId: p.account_id })}>
@@ -80,7 +82,7 @@ export function Neighbours() {
                   <span className="muted small">
                     {p.barangay ? `Brgy. ${p.barangay}` : "Barangay not chosen"}
                   </span>
-                  <span className="muted small">can lend {fmtUtang(availableToLend(p))}</span>
+                  <span className="muted small">{canLend ? `can lend ${fmtUtang(free)}` : "can't lend right now"}</span>
                   {p.has_overdue ? <span className="overdue-chip small">Overdue · bayad muna</span> : null}
                 </div>
               </button>
@@ -91,8 +93,8 @@ export function Neighbours() {
                   ))}
                 </span>
                 {!isMe ? (
-                  <Button small kind="secondary" onClick={() => bus.emit("open:ask", { lender: p.account_id })}>
-                    Ask
+                  <Button small kind="secondary" disabled={!canLend} onClick={() => canLend && bus.emit("open:ask", { lender: p.account_id })}>
+                    {canLend ? "Ask" : "Can't lend"}
                   </Button>
                 ) : null}
               </div>

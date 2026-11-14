@@ -93,7 +93,7 @@ export function QuestTracker({ compact = false }: { compact?: boolean }) {
     // open briefly on each new step (folded straight away while something urgent, like overdue, is shown)
     setOpen(!compact);
     if (compact) return;
-    const t = setTimeout(() => setOpen(false), 9000);
+    const t = setTimeout(() => setOpen(false), 4000);
     return () => clearTimeout(t);
   }, [stageKey, compact]);
   if (view.stage === "done" || view.stage === "reward") return null;
