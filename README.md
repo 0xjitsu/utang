@@ -27,6 +27,19 @@ Judges, start here: [https://utang-game.vercel.app/?judge=1](https://utang-game.
 
 ---
 
+## Tracks
+
+Built at [NEAR HACKATHON](https://nearhackathon.com/). Every claim below is in [`contract/`](contract/) or [`web/src`](web/src).
+
+| Track | Fit (what's actually built) |
+|---|---|
+| **Memecoins With Mechanics** (`memecoins`) | A [NEP-141](https://github.com/near/NEPs/blob/master/neps/nep-0141.md) token with zero starting supply: coins are minted only when a neighbour `approve`s a loan and burned on `repay`. Anti-farming is in the contract: no self-loans, pair credit starts at 10.00 and grows only after counted repayments, a repayment counts only after 24 hours plus a 7-day pair cooldown and a 1-day borrower cooldown, *bayad muna* freezes overdue borrowers, the bonus pool is capped at 100,000.00, and parameters are fixed at deploy (`rules()`). In the 60-day sim, farmed tokens fell from **99,876.00 (pool empty by day 22)** to **989.00**. See [How the coin works](#how-the-coin-works). |
+| **Games With Real Economies** (`games`) | The loop is ask → approve → wait → repay (or overdue) on a walkable sari-sari street. The economy is live contract state: supply equals outstanding loans, and trust, lending limits and the trust index change with player behaviour. Play in the browser: [utang-game.vercel.app](https://utang-game.vercel.app) · judges: [?judge=1](https://utang-game.vercel.app/?judge=1). |
+| **Agent Economy** (`agents`) | There is no game server. AI agents call the same testnet contract humans do, with [near-cli](https://github.com/near/near-cli-rs): `ask`, `approve` (lend), `repay`, and `mark_overdue` (collect a past-due loan). They earn trust under the same rules. How-to: [AI agents](#ai-agents-straight-to-the-contract). |
+| **Open Innovation** (`open`) | The Filipino *listahan* — the neighbourhood IOU notebook — is on-chain as `listahan()`. Trust is a per-player score that cannot be transferred, bought or sold; it only moves when a loan is repaid or marked overdue. |
+
+---
+
 ## 50 fake accounts emptied our bonus pool in 22 days
 
 <img src="docs/media/01-hook.gif" alt="50 fake accounts emptied our bonus pool" width="420" align="right">
