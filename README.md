@@ -11,6 +11,10 @@
 [![NEP-145](https://img.shields.io/badge/NEP--145-storage-222)](https://github.com/near/NEPs/blob/master/neps/nep-0145.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](#license)
 
+<a href="docs/media/utang-trailer.mp4"><img src="docs/media/00-trailer-logo.gif" alt="$UTANG trailer logo slam: PLAY NOW" width="440"></a>
+
+### 🎬 [Watch the trailer (35s, with sound)](docs/media/utang-trailer.mp4)
+
 <img src="docs/media/02-street.gif" alt="Walking the Hulo street to a neighbour's sari-sari store" width="760">
 
 ### ▶ Play in browser: [https://utang-game.vercel.app](https://utang-game.vercel.app)
