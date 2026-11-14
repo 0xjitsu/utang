@@ -236,3 +236,24 @@ Order within one transaction:
 26. **Minimum term is 2 days** (`min_days = 2`, was 1). With a 1-day term and `bonus_min_age_days = 1`
     a loan could only count at the exact instant it fell due. A 2-day loan can count from age 1 day
     up to and including its due time (test `shortest_loan_can_count`).
+
+
+## TODOs before final deploy
+
+These are known contract follow-ups. They are **not implemented here** because this box cannot run
+`cargo test` (host rustc is 1.85; near-sdk 5.30 needs 1.95+) and we will not ship untested Rust.
+Apply on a machine that can run `cargo test` and `cargo test --features demo-time`, then redeploy.
+
+1. **Cap `limit` on list views.** `listahan`, `players`, `players_in` and `leaderboard` default to
+   `DEFAULT_PAGE_LIMIT` (50) or `DEFAULT_LEADERBOARD_LIMIT` (20) when `limit` is omitted, but a
+   caller can pass a very large `limit` and force a full scan / large return. Clamp to a hard max
+   (e.g. `limit.min(DEFAULT_PAGE_LIMIT)` or 50 for lists and 20–50 for the leaderboard). The
+   in-browser mock (`web/src/near/mock/contract.ts`, `optNum`) has the same gap and should stay in
+   sync.
+
+2. **Ask/cancel storage griefing.** Loan records (about 200 bytes each, plus index entries) are paid
+   from the contract account's own balance (see note 19). A borrower can `ask` and `cancel` repeatedly
+   (cancelled loans stay in the vector) and grow contract storage at the contract's expense. The
+   5-open-loans rule only limits *open* loans, not cancelled history. Mitigations to consider:
+   charge a small deposit on `ask` that is refunded on `approve`/`decline`/`cancel`, reuse cancelled
+   slots, or prune cancelled requests after a cooldown. Untested; do not ship a guess.

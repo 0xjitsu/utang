@@ -185,7 +185,7 @@ This is a hackathon demo on testnet. These are the attacks we know about and how
 | **Borrow and run** (borrow from honest neighbours, move the coins to a clean account before the due date) Credit with any neighbour grows only 10.00 per counted repayment; max 5 open loans per borrower; lenders' limits halve on every overdue loan; runners are frozen after the due date | A naive runner gets about 10.00 per honest lender. A **patient** attacker can first build real repayment history with honest lenders ("priming") and then run: in the simulation, 50 fake accounts took 6,738 UTANG this way (9,492 with an all-at-once cap, 11,042 with no cap, 12,081 under our first design). We compared four rules; see `sim/output/summary.md`. |
 | **Coins sent to an overdue account** | — | They stay frozen with that account and can only be used to repay. |
 | **Forcing debt on someone** | Loans need the borrower to ask *and* the lender to approve | — |
-| **Admin changing the rules** | Parameters are constants; the contract account's full-access keys are deleted after deploy | — |
+| **Admin changing the rules** | Parameters are constants; the contract account's full-access keys will be deleted after the final deploy (not yet — see [Deployment](#deployment)) | Until those keys are deleted, the deployer can still upgrade the contract |
 | **Spam `mark_overdue`** | Only works after the due date on an unpaid loan; it only records what is already true | — |
 | **Inflation from bonuses** | Bonus pool capped at 100,000.00 UTANG forever | — |
 
@@ -196,7 +196,7 @@ The contract cannot know who is a real person. Trust in $UTANG measures how acco
 ## Why NEAR
 
 - **Readable names.** The listahan reads like the real notebook: `ben.testnet owes ana.testnet 10.00`. No hex addresses.
-- **Rules nobody can change.** NEAR lets us delete the contract account's keys after deploy, so the rules are final.
+- **Rules can be frozen.** NEAR lets us delete the contract account's keys after the final deploy, so nobody (including us) can change the rules. Those keys are still in place while we finish testing; see [Deployment](#deployment).
 - **Storage deposits** give every account a real, small cost, our first line against fake accounts.
 - **Fast, cheap transactions** make repaying 0.50 UTANG worth doing and make the game feel responsive.
 - Standards: **NEP-141** (fungible token), **NEP-145** (storage management).
@@ -295,7 +295,7 @@ Other commands:
 ```bash
 npm run build          # type-check + production build into web/dist/
 npm run preview        # serve the production build locally
-npm test               # 70 tests: contract-rules mock, invariants, input guards, quest, dialogs, map
+npm test               # 72 passed, 1 skipped (live.test.ts needs LIVE_CONTRACT_ID): contract-rules mock, invariants, input guards, quest, dialogs, map
 npm run sync-sim       # copy ../sim/output/*.json into the Economy screen
 npm run check-live     # read-only check that the live contract's data matches the app's types
 ```
@@ -360,11 +360,18 @@ near contract deploy demo.utang-game.testnet use-file target/near/demo/utang.was
 
 `without-init-call` keeps existing state; it only works if the contract's stored data layout hasn't changed. If it has, the account has to be recreated and `new` called again (state is lost).
 
-> **Before the final submission the contracts' keys will be deleted** so that nobody, including us, can change the rules. After that, the key files for `utang-game.testnet` and `demo.utang-game.testnet` stop working and the contracts can no longer be upgraded; the test-player keys keep working.
+> **The contracts still hold their deploy keys.** They have not been deleted yet. After the final deploy we will delete every full-access key on `utang-game.testnet` and `demo.utang-game.testnet` so nobody, including us, can change the rules. After that, those key files stop working and the contracts can no longer be upgraded; the test-player keys (`ana…`, `ben…`) keep working. This section will then link the delete-keys transactions.
+
+Planned command (do **not** run until the final deploy; replace the public key with the one currently on each contract account):
+
+```bash
+near account delete-keys utang-game.testnet public-keys ed25519:<CONTRACT_PUBLIC_KEY> \
+  network-config testnet sign-with-legacy-keychain send
+near account delete-keys demo.utang-game.testnet public-keys ed25519:<CONTRACT_PUBLIC_KEY> \
+  network-config testnet sign-with-legacy-keychain send
+```
 
 Both contracts run the same code; the demo build only shortens the day so a full loan cycle (ask → approve → wait a "day" → repay with bonus) fits in a video. Check with `near contract call-function as-read-only demo.utang-game.testnet rules json-args '{}' network-config testnet now`: `demo_time` is `true` there and `false` on the main contract.
-
-> The contracts still hold their deploy keys while the game is being tested. They are deleted at the final deploy, and this section will link the transaction that removes them.
 
 ## Status
 
