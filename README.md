@@ -180,7 +180,6 @@ The mock, the Rust contract and the simulator all follow [`docs/INTERFACE.md`](d
 - [stickoyum](https://github.com/stickoyum)
 - [mxber2022](https://github.com/mxber2022)
 
-Sister entry at the same hackathon (separate, independent project): **GHOST WAFER**.
 
 ---
 
